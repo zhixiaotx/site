@@ -1,5 +1,6 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import logoImg from '../assets/logo.jpg';
 
 interface FooterProps {
   darkMode: boolean;
@@ -44,7 +45,7 @@ export const Footer: React.FC<FooterProps> = ({ darkMode }) => {
           <div className="flex items-center gap-2.5">
             <div className="w-10 h-10 flex items-center justify-center">
               <img
-                src="./logo.jpg"
+                src={logoImg}
                 alt="Footer Logo"
                 className="w-full h-full object-contain rounded-xl"
               />

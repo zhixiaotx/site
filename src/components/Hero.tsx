@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, ArrowRight, Code, Cpu, Terminal, Compass } from 'lucide-react';
 import { motion } from 'motion/react';
+import logoImg from '../assets/logo.jpg';
 
 interface HeroProps {
   darkMode: boolean;
@@ -110,7 +111,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onExplore, onContact }) =>
                 <div className="flex items-center gap-3">
                   <div className="w-16 h-16 flex items-center justify-center">
                     <img
-                      src="./logo.jpg"
+                      src={logoImg}
                       alt="Sky Avatar"
                       className="w-full h-full object-contain rounded-2xl"
                     />

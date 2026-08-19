@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Sun, Moon, Sparkles, Github, Send } from 'lucide-react';
+import logoImg from '../assets/logo.jpg';
 
 interface NavbarProps {
   darkMode: boolean;
@@ -55,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
         >
           <div className="w-12 h-12 group-hover:scale-105 transition-transform flex items-center justify-center">
             <img
-              src="./logo.jpg"
+              src={logoImg}
               alt="Sky Logo"
               className="w-full h-full object-contain rounded-xl"
             />
