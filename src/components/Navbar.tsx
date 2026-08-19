@@ -1,36 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Sparkles } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/mockData';
+import { Menu, X, Sun, Moon, Sparkles, Github, Send } from 'lucide-react';
+import logoImg from '../assets/logo.jpg';
 
 interface NavbarProps {
   darkMode: boolean;
   setDarkMode: (val: boolean) => void;
   activeSection: string;
-  setActiveSection: (section: string) => void;
+  setActiveSection: (sec: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSection, setActiveSection }) => {
-  const [scrolled, setScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 20) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { id: 'projects', label: '精选项目' },
+  const navLinks = [
+    { id: 'hero', label: '首页' },
     { id: 'about', label: '关于我' },
-    { id: 'articles', label: '技术文章' },
-    { id: 'playground', label: 'AI 实验室' },
-    { id: 'contact', label: '联系合作' },
+    { id: 'portfolio', label: '项目作品' },
+    { id: 'garden', label: '数字笔记' },
+    { id: 'contact', label: '联系方式' },
   ];
 
   const scrollToSection = (id: string) => {
@@ -43,96 +39,145 @@ export const Navbar: React.FC<NavbarProps> = ({ darkMode, setDarkMode, activeSec
   };
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled 
-        ? darkMode ? 'bg-neutral-900/80 backdrop-blur-md border-b border-neutral-800 py-3' : 'bg-white/80 backdrop-blur-md border-b border-neutral-200/80 py-3'
-        : 'bg-transparent py-5'
-    }`}>
-      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between">
-        <button 
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? darkMode
+            ? 'bg-neutral-900/85 backdrop-blur-md border-b border-neutral-800 shadow-lg'
+            : 'bg-white/85 backdrop-blur-md border-b border-neutral-200/80 shadow-sm'
+          : 'bg-transparent'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+        {/* Logo */}
+        <button
           onClick={() => scrollToSection('hero')}
-          className="flex items-center gap-2.5 group text-left focus:outline-none"
+          className="flex items-center gap-2.5 group text-left cursor-pointer"
         >
-          <div className="w-9 h-9 rounded-xl overflow-hidden bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm transition-transform group-hover:scale-105">
-            <img src="./favicon.png" alt="Sky" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+          <div className="w-12 h-12 group-hover:scale-105 transition-transform flex items-center justify-center">
+            <img
+              src={logoImg}
+              alt="Sky Logo"
+              className="w-full h-full object-contain rounded-xl"
+            />
           </div>
           <div>
-            <span className="font-semibold text-neutral-900 dark:text-white tracking-tight text-base block leading-none">
-              {PERSONAL_INFO.name}
+            <span className={`font-bold text-lg tracking-tight ${darkMode ? 'text-white' : 'text-neutral-900'}`}>
+              Sky
+            </span>
+            <span className={`block text-xs font-medium ${darkMode ? 'text-neutral-400' : 'text-neutral-500'}`}>
+              1 人 + AI 超级个体
             </span>
           </div>
         </button>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-1 bg-neutral-100/80 dark:bg-neutral-800/60 p-1.5 rounded-full border border-neutral-200/60 dark:border-neutral-700/60 backdrop-blur-sm">
-          {navItems.map((item) => (
+        {/* Desktop Nav Links */}
+        <nav className="hidden md:flex items-center gap-1 bg-neutral-100/60 dark:bg-neutral-800/60 p-1.5 rounded-full border border-neutral-200/60 dark:border-neutral-700/60 backdrop-blur-sm">
+          {navLinks.map((link) => (
             <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all ${
-                activeSection === item.id
-                  ? 'bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white shadow-xs'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
+              key={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
+                activeSection === link.id
+                  ? darkMode
+                    ? 'bg-neutral-900 text-white shadow-sm'
+                    : 'bg-white text-neutral-900 shadow-sm'
+                  : darkMode
+                  ? 'text-neutral-400 hover:text-white hover:bg-neutral-800/40'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-white/40'
               }`}
             >
-              {item.label}
+              {link.label}
             </button>
           ))}
         </nav>
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
+          {/* Theme Toggle */}
           <button
             onClick={() => setDarkMode(!darkMode)}
-            aria-label="切换主题"
-            className="w-9 h-9 rounded-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
+            className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors border cursor-pointer ${
+              darkMode
+                ? 'bg-neutral-800 border-neutral-700 text-amber-400 hover:bg-neutral-700'
+                : 'bg-neutral-50 border-neutral-200 text-amber-600 hover:bg-neutral-100'
+            }`}
+            aria-label="Toggle Theme"
           >
-            {darkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-neutral-700" />}
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
 
+          {/* Github Link */}
           <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-90 transition-opacity shadow-sm"
+            href="https://github.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition-all border shadow-sm ${
+              darkMode
+                ? 'bg-neutral-800 border-neutral-700 text-white hover:bg-neutral-700'
+                : 'bg-neutral-900 border-neutral-900 text-white hover:bg-neutral-800'
+            }`}
           >
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>与我交流</span>
+            <Github className="w-4 h-4" />
+            <span>GitHub</span>
           </a>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden w-9 h-9 rounded-full flex items-center justify-center bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300"
-            aria-label="切换移动端菜单"
+            className={`md:hidden w-10 h-10 rounded-xl flex items-center justify-center border cursor-pointer ${
+              darkMode
+                ? 'bg-neutral-800 border-neutral-700 text-white'
+                : 'bg-neutral-100 border-neutral-200 text-neutral-900'
+            }`}
+            aria-label="Mobile Menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800 shadow-xl px-6 py-5 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 duration-200">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`text-left py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                activeSection === item.id
-                  ? 'bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white'
-                  : 'text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800/50'
+        <div
+          className={`md:hidden absolute top-20 left-0 right-0 border-b p-5 shadow-xl transition-all ${
+            darkMode
+              ? 'bg-neutral-900 border-neutral-800 text-white'
+              : 'bg-white border-neutral-200 text-neutral-900'
+          }`}
+        >
+          <div className="flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <button
+                key={link.id}
+                onClick={() => scrollToSection(link.id)}
+                className={`text-left px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                  activeSection === link.id
+                    ? darkMode
+                      ? 'bg-neutral-800 text-amber-400 font-semibold'
+                      : 'bg-amber-50 text-amber-700 font-semibold'
+                    : darkMode
+                    ? 'text-neutral-300 hover:bg-neutral-800'
+                    : 'text-neutral-700 hover:bg-neutral-50'
+                }`}
+              >
+                {link.label}
+              </button>
+            ))}
+            <a
+              href="https://github.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-xl font-medium text-sm border ${
+                darkMode
+                  ? 'bg-neutral-800 border-neutral-700 text-white'
+                  : 'bg-neutral-900 border-neutral-900 text-white'
               }`}
             >
-              {item.label}
-            </button>
-          ))}
-          <button
-            onClick={() => scrollToSection('contact')}
-            className="mt-2 w-full py-2.5 rounded-xl text-sm font-medium bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 flex items-center justify-center gap-2"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>与我交流</span>
-          </button>
+              <Github className="w-4 h-4" />
+              <span>访问 GitHub 仓库</span>
+            </a>
+          </div>
         </div>
       )}
     </header>

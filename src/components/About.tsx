@@ -1,139 +1,106 @@
-import React, { useState } from 'react';
-import { SKILL_CATEGORIES, TIMELINE, PERSONAL_INFO } from '../data/mockData';
-import { Code2, FileCode, Palette, Sparkles, Server, Cpu, Bot, Database, GitBranch, Layout, Cloud, Zap, Briefcase, GraduationCap } from 'lucide-react';
+import React from 'react';
+import { User, Code, Cpu, Layout, Server, Terminal, Palette, GitBranch, CheckCircle2 } from 'lucide-react';
+import { skillsData } from '../data/mockData';
+import { motion } from 'motion/react';
 
-const iconMap: Record<string, React.ReactNode> = {
-  Code2: <Code2 className="w-4 h-4" />,
-  FileCode: <FileCode className="w-4 h-4" />,
-  Palette: <Palette className="w-4 h-4" />,
-  Sparkles: <Sparkles className="w-4 h-4" />,
-  Server: <Server className="w-4 h-4" />,
-  Cpu: <Cpu className="w-4 h-4" />,
-  Bot: <Bot className="w-4 h-4" />,
-  Database: <Database className="w-4 h-4" />,
-  GitBranch: <GitBranch className="w-4 h-4" />,
-  Layout: <Layout className="w-4 h-4" />,
-  Cloud: <Cloud className="w-4 h-4" />,
-  Zap: <Zap className="w-4 h-4" />
-};
+interface AboutProps {
+  darkMode: boolean;
+}
 
-export const About: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'skills' | 'timeline'>('skills');
-
+export const About: React.FC<AboutProps> = ({ darkMode }) => {
   return (
-    <section id="about" className="py-24 bg-neutral-50/50 dark:bg-neutral-900/40 border-y border-neutral-200/60 dark:border-neutral-800">
-      <div className="max-w-6xl mx-auto px-6">
-        
-        {/* Section Heading */}
-        <div className="max-w-2xl mb-16">
-          <span className="text-xs font-semibold tracking-wider text-neutral-500 dark:text-neutral-400 uppercase block mb-2">背景与专业技能</span>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-neutral-900 dark:text-white mb-4">
-            秉持匠心与实用主义的工程实践。
+    <section id="about" className={`py-20 md:py-32 border-t ${darkMode ? 'bg-neutral-900/50 border-neutral-800' : 'bg-neutral-50/50 border-neutral-200'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-3 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">
+            About Me
+          </span>
+          <h2 className={`text-3xl sm:text-4xl font-bold tracking-tight mb-4 ${darkMode ? 'text-white' : 'text-neutral-900'}`}>
+            关于我与数字游民之路
           </h2>
-          <p className="text-neutral-600 dark:text-neutral-400 text-base leading-relaxed">
-            {PERSONAL_INFO.bio} 我深信干净的代码、严谨的设计标准以及能够真正解决真实痛点的产品价值。
+          <p className={`text-base sm:text-lg ${darkMode ? 'text-neutral-400' : 'text-neutral-600'}`}>
+            用代码构筑数字世界，借助 AI 放大个体创造力。
           </p>
         </div>
 
-        {/* Toggle between Skills and Timeline */}
-        <div className="flex items-center gap-2 mb-10 border-b border-neutral-200 dark:border-neutral-800 pb-4">
-          <button
-            onClick={() => setActiveTab('skills')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-              activeTab === 'skills'
-                ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm'
-                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-            }`}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* Left Bio and Story */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-6 space-y-6"
           >
-            技术栈与能力
-          </button>
-          <button
-            onClick={() => setActiveTab('timeline')}
-            className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all ${
-              activeTab === 'timeline'
-                ? 'bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 shadow-sm'
-                : 'text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white'
-            }`}
-          >
-            职业经历与教育
-          </button>
-        </div>
+            <div className={`p-8 rounded-3xl border shadow-sm ${
+              darkMode ? 'bg-neutral-900 border-neutral-800 text-neutral-300' : 'bg-white border-neutral-200/80 text-neutral-700'
+            }`}>
+              <h3 className={`text-2xl font-bold mb-4 ${darkMode ? 'text-white' : 'text-neutral-900'}`}>
+                你好，我是 Sky。一名全栈开发者与独立创造者。
+              </h3>
+              <p className="leading-relaxed mb-4">
+                我深信 AI 时代让“超级个体”成为了可能。过去需要庞大团队才能完成的项目，现在通过精心规划和与大模型的协同，一个人也能打造出极具价值的精致产品。
+              </p>
+              <p className="leading-relaxed mb-6">
+                我的技术栈涵盖 React、TypeScript、Node.js 以及现代 AI 代理应用开发。在工作之外，我热爱摄影、阅读与数字游民生活方式，乐于将所思所想分享给开源社区。
+              </p>
 
-        {/* Skills View */}
-        {activeTab === 'skills' && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 animate-in fade-in duration-300">
-            {SKILL_CATEGORIES.map((cat, idx) => (
-              <div 
-                key={idx}
-                className="bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 rounded-2xl p-6 shadow-xs hover:shadow-md transition-shadow"
-              >
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-5 flex items-center justify-between">
-                  <span>{cat.name}</span>
-                  <span className="text-xs px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 font-mono">
-                    {cat.skills.length} 项核心
-                  </span>
-                </h3>
-
-                <div className="space-y-4">
-                  {cat.skills.map((skill, sIdx) => (
-                    <div key={sIdx}>
-                      <div className="flex items-center justify-between text-xs mb-1.5">
-                        <span className="font-medium text-neutral-700 dark:text-neutral-300 flex items-center gap-2">
-                          <span className="text-neutral-500 dark:text-neutral-400">
-                            {iconMap[skill.iconName] || <Sparkles className="w-4 h-4" />}
-                          </span>
-                          {skill.name}
-                        </span>
-                        <span className="font-mono text-neutral-400">{skill.level}%</span>
-                      </div>
-                      <div className="w-full h-1.5 bg-neutral-100 dark:bg-neutral-800 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-neutral-900 dark:bg-white rounded-full transition-all duration-1000"
-                          style={{ width: `${skill.level}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Timeline View */}
-        {activeTab === 'timeline' && (
-          <div className="max-w-3xl space-y-6 animate-in fade-in duration-300">
-            {TIMELINE.map((item) => (
-              <div 
-                key={item.id}
-                className="relative pl-8 pb-8 border-l border-neutral-200 dark:border-neutral-800 last:pb-0"
-              >
-                {/* Timeline node icon */}
-                <div className="absolute -left-3.5 top-0 w-7 h-7 rounded-full bg-white dark:bg-neutral-900 border-2 border-neutral-900 dark:border-white flex items-center justify-center text-neutral-900 dark:text-white shadow-xs">
-                  {item.type === 'work' ? <Briefcase className="w-3.5 h-3.5" /> : <GraduationCap className="w-3.5 h-3.5" />}
-                </div>
-
-                <div className="bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 rounded-2xl p-6 shadow-xs">
-                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                    <span className="text-xs font-mono font-semibold px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300">
-                      {item.year}
-                    </span>
-                    <span className="text-xs text-neutral-500 font-medium">
-                      {item.organization}
+              <div className="space-y-3 pt-4 border-t border-neutral-200/80 dark:border-neutral-800">
+                {[
+                  '1人 + AI 超级团队实践者',
+                  '专注极简美学与流畅的用户体验',
+                  '热衷开源与知识分享（数字花园）',
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-indigo-500 shrink-0" />
+                    <span className={`font-medium ${darkMode ? 'text-neutral-200' : 'text-neutral-800'}`}>
+                      {item}
                     </span>
                   </div>
-                  <h4 className="text-base font-bold text-neutral-900 dark:text-white mb-2">
-                    {item.role}
-                  </h4>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                ))}
               </div>
-            ))}
-          </div>
-        )}
+            </div>
+          </motion.div>
 
+          {/* Right Skills Grid */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="lg:col-span-6"
+          >
+            <div className={`p-8 rounded-3xl border shadow-sm ${
+              darkMode ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-neutral-200/80'
+            }`}>
+              <h3 className={`text-xl font-bold mb-6 ${darkMode ? 'text-white' : 'text-neutral-900'}`}>
+                核心技能与掌握度
+              </h3>
+
+              <div className="space-y-6">
+                {skillsData.map((skill) => (
+                  <div key={skill.name}>
+                    <div className="flex justify-between text-sm font-medium mb-2">
+                      <span className={darkMode ? 'text-neutral-200' : 'text-neutral-800'}>
+                        {skill.name}
+                      </span>
+                      <span className="text-indigo-500 font-semibold">{skill.level}%</span>
+                    </div>
+                    <div className={`w-full h-2.5 rounded-full overflow-hidden ${
+                      darkMode ? 'bg-neutral-800' : 'bg-neutral-100'
+                    }`}>
+                      <div
+                        className="h-full bg-gradient-to-r from-amber-500 to-indigo-600 rounded-full transition-all duration-1000"
+                        style={{ width: `${skill.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

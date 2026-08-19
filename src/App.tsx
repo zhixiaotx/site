@@ -1,21 +1,15 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
-import { Projects } from './components/Projects';
-import { Blog } from './components/Blog';
-import { Playground } from './components/Playground';
+import { Portfolio } from './components/Portfolio';
+import { DigitalGarden } from './components/DigitalGarden';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
-  const [activeSection, setActiveSection] = useState<string>('hero');
+  const [darkMode, setDarkMode] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     if (darkMode) {
@@ -25,33 +19,41 @@ export default function App() {
     }
   }, [darkMode]);
 
-  const scrollToProjects = () => {
-    setActiveSection('projects');
-    const el = document.getElementById('projects');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (id: string) => {
+    setActiveSection(id);
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans selection:bg-neutral-900 selection:text-white dark:selection:bg-white dark:selection:text-neutral-900 transition-colors duration-300">
-      <Navbar 
-        darkMode={darkMode} 
-        setDarkMode={setDarkMode} 
-        activeSection={activeSection} 
-        setActiveSection={setActiveSection} 
+    <div className={`min-h-screen transition-colors duration-300 font-sans ${
+      darkMode ? 'bg-neutral-950 text-neutral-100 selection:bg-indigo-600 selection:text-white' : 'bg-neutral-50 text-neutral-900 selection:bg-indigo-600 selection:text-white'
+    }`}>
+      {/* Navigation */}
+      <Navbar
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        activeSection={activeSection}
+        setActiveSection={setActiveSection}
       />
 
+      {/* Main Content Sections */}
       <main>
-        <Hero onExploreClick={scrollToProjects} />
-        <Projects />
-        <About />
-        <Blog />
-        <Playground />
-        <Contact />
+        <Hero
+          darkMode={darkMode}
+          onExplore={() => scrollToSection('portfolio')}
+          onContact={() => scrollToSection('contact')}
+        />
+        <About darkMode={darkMode} />
+        <Portfolio darkMode={darkMode} />
+        <DigitalGarden darkMode={darkMode} />
+        <Contact darkMode={darkMode} />
       </main>
 
-      <Footer />
+      {/* Footer */}
+      <Footer darkMode={darkMode} />
     </div>
   );
 }
