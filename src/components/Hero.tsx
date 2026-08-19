@@ -117,7 +117,7 @@ export const Hero: React.FC<HeroProps> = ({ darkMode, onExplore, onContact }) =>
                   </div>
                   <div>
                     <h3 className={`font-bold text-base ${darkMode ? 'text-white' : 'text-neutral-900'}`}>
-                      Sky (不二)
+                      Sky
                     </h3>
                     <p className={`text-xs ${darkMode ? 'text-neutral-400' : 'text-neutral-500'}`}>
                       AI Builder & Architect
