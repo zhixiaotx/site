@@ -1,6 +1,25 @@
-import { Project, Article, SkillItem } from '../types';
+import { Project, Article, TimelineItem, SkillCategory } from '../types';
 
-export const projectsData: Project[] = [
+export const PERSONAL_INFO = {
+  name: "Sky",
+  title: "全栈工程师 & AI 产品创造者",
+  tagline: "专注于极简数字体验、智能 AI 代理与有温度的软件架构。",
+  bio: "嗨，我是 Sky。我是一名软件工程师与产品创造者，热爱人工智能、人机交互与精炼极简设计的交汇点。我致力于打造自然、流畅、令人愉悦的高性能产品。",
+  location: "旧金山 / 远程",
+  email: "123456@gmail.com",
+  github: "https://github.com/zhixiaotx",
+  twitter: "https://twitter.com/",
+  linkedin: "https://linkedin.com/in/",
+  avatar: "./favicon.png",
+  stats: {
+    yearsExperience: "5+",
+    projectsShipped: "30+",
+    openSourceRepos: "15+",
+    happyClients: "20+"
+  }
+};
+
+export const PROJECTS: Project[] = [
   {
     id: "nexus-ai",
     title: "Newtab",
@@ -143,46 +162,103 @@ export const projectsData: Project[] = [
   }
 ];
 
-export const articlesData: Article[] = [
+export const ARTICLES: Article[] = [
   {
-    id: '1-person-ai-team',
-    title: '1人 + AI = 超级个体：我是如何构建一人公司的',
-    summary: '深度复盘我是如何利用大语言模型和现代化开发工具，将个人生产力放大 10 倍的全过程。',
-    content: `在人工智能迅猛发展的今天，传统的“公司组织形态”正在被解构。作为一个独立开发者，我深切体会到了“1人 + AI = 超级团队”的震撼威力。\n\n### 1. 为什么选择超级个体路线？\n过去，构建一个完整的 SaaS 产品需要前端、后端、设计师、运营、文案等多个角色协同。而现在，通过精细的 Prompt Engineering、Cursor 代码助手以及自动化工作流，一个人可以轻松胜任原本需要 5-10 人的工作负载。\n\n### 2. 我的日常 AI 工作流\n- **产品规划**：与 Gemini 进行头脑风暴，产出 PRD 与用户故事。\n- **架构设计**：快速生成前后端骨架代码，省去繁琐的样板代码编写。\n- **内容创作**：利用 AI 辅助提炼文章核心观点并进行多平台排版。\n\n### 3. 核心心法：保持好奇心与审美\n工具越强大，个人的审美和问题定义能力就越发重要。AI 负责执行和加速，而人类负责方向盘和灵魂。`,
-    category: 'AI 实践',
-    readTime: '6 分钟阅读',
-    date: '2026-02-15',
-    views: 3420,
+    id: "art-1",
+    title: "2026 年如何设计直观的人机 AI 界面",
+    excerpt: "流式 Token、主动式 Agent 与无感 UI 模式如何重塑现代软件设计。",
+    content: `随着人工智能成为现代软件的底层运行时，传统的静态表单和僵化向导正让位于流式、对话式和智能代理界面。\n\n### 1. 告别加载转圈\n当用户与 AI 交互时，延迟在所难免。成功的应用通过流式 UI、骨架思维和渐进式渲染来保持用户的专注与流畅体验。\n\n### 2. 上下文的主动感知\n伟大的 AI 从不被动等待指令，而是基于当前工作流状态主动预判需求。在准确的时机呈现相关的操作，能够大幅降低用户的认知负担。`,
+    category: "AI 与设计",
+    readTime: "4 分钟阅读",
+    date: "2026年5月14日",
+    image: "https://imgbed.stimi.cc.cd/file/壁纸/1783959273017_【哲风壁纸】原野-壁纸-天空.png",
+    slug: "building-intuitive-ai-interfaces"
   },
   {
-    id: 'react-19-modern-patterns',
-    title: 'React 19 + Vite 现代化前端工程实践指南',
-    summary: '探讨 React 19 最新特性、Server Actions 带来的架构变革以及高性能单页应用构建技巧。',
-    content: `React 19 的正式发布为前端开发带来了全新的设计范式。本文将结合实际项目，详细剖析如何利用 Vite 和 Tailwind CSS 构建极速、轻量且高度可维护的现代 Web 应用。\n\n### 主要改进点\n1. **Actions 与 useActionState**：彻底简化了表单提交与异步状态管理。\n2. **ref 作为 Prop**：不再需要复杂的 forwardRef，组件封装更加直观。\n3. **资源预加载优化**：提升首屏加载性能与用户体验。`,
-    category: '前端开发',
-    readTime: '8 分钟阅读',
-    date: '2026-01-20',
-    views: 2150,
+    id: "art-2",
+    title: "为什么极简主义在全栈架构中永不过时",
+    excerpt: "更少的代码意味着更少的缺陷。构建健壮、可维护 Web 系统的实用指南。",
+    content: `在微服务泛滥和工具链极度复杂的今天，保持简单已成为一种强大的超能力。\n\n### 抽象的代价\n你引入的每一个依赖都是一项潜在的负债。通过坚持端到端强类型（如全栈 TypeScript）的单一或模块化框架，工程团队能够以减少 80% 线上事故的速度进行迭代。`,
+    category: "工程实践",
+    readTime: "6 分钟阅读",
+    date: "2026年4月28日",
+    image: "https://imgbed.stimi.cc.cd/file/壁纸/1783959309903_【哲风壁纸】8k-风景.png",
+    slug: "why-minimalism-wins"
   },
   {
-    id: 'digital-nomad-lifestyle',
-    title: '数字游民的自由与自律：远程工作 2 年的心得',
-    summary: '从大厂走向独立，谈谈数字游民的生活方式、时间管理与心理建设。',
-    content: `摆脱物理办公室的束缚，在咖啡馆、海边或者山野中带着笔记本工作，是许多人的梦想。但自由的背面是极高的自律要求。\n\n### 打造你的异步工作系统\n- 明确每日的交付目标而非工作时长。\n- 建立健康的作息与运动习惯。\n- 持续输出，建立属于自己的数字资产与影响力。`,
-    category: '数字游民',
-    readTime: '5 分钟阅读',
-    date: '2025-12-10',
-    views: 1890,
-  },
+    id: "art-3",
+    title: "如何设计让开发者爱不释手的设计系统",
+    excerpt: "零摩擦打通 Figma 设计资产与生产环境 React 代码的桥梁。",
+    content: `当设计系统被视为静态 PDF 或过于庞大的组件怪兽时，往往会走向失败。要获得成功，设计Token 必须通过自动化 CI 检查无缝同步到 Tailwind 配置中。`,
+    category: "设计系统",
+    readTime: "5 分钟阅读",
+    date: "2026年3月12日",
+    image: "https://imgbed.stimi.cc.cd/file/壁纸/1784334293825_【哲风壁纸】花朵-蓝天.webp",
+    slug: "design-systems-developers-love"
+  }
 ];
 
-export const skillsData: SkillItem[] = [
-  { name: 'React / Next.js', level: 95, category: 'Frontend', iconName: 'Code' },
-  { name: 'TypeScript', level: 90, category: 'Frontend', iconName: 'FileCode' },
-  { name: 'Tailwind CSS', level: 95, category: 'Frontend', iconName: 'Layout' },
-  { name: 'Node.js & Express', level: 85, category: 'Frontend', iconName: 'Server' },
-  { name: 'Gemini / LLM Integration', level: 92, category: 'AI & LLM', iconName: 'Cpu' },
-  { name: 'Prompt Engineering', level: 90, category: 'AI & LLM', iconName: 'Terminal' },
-  { name: 'UI/UX Design & Figma', level: 88, category: 'Design', iconName: 'Palette' },
-  { name: 'Git & GitHub Actions', level: 90, category: 'Workflow', iconName: 'GitBranch' },
+export const TIMELINE: TimelineItem[] = [
+  {
+    id: "tl-1",
+    year: "2024 - 至今",
+    role: "独立创造者 & 创始人",
+    organization: "Sky Studio / 开源项目",
+    description: "构建高性能 AI 工具、设计系统与全球开发者生产力软件。",
+    type: "work"
+  },
+  {
+    id: "tl-2",
+    year: "2022 - 2024",
+    role: "资深全栈工程师",
+    organization: "Nexus 科技",
+    description: "主导核心前端架构，将遗留单体应用迁移至模块化 React/Node 微前端，并优化实时数据管道。",
+    type: "work"
+  },
+  {
+    id: "tl-3",
+    year: "2020 - 2022",
+    role: "前端工程师 & UI 设计师",
+    organization: "Vanguard 实验室",
+    description: "负责设计和开发面向客户的 SaaS 数据看板、交互式数据可视化及内部组件库。",
+    type: "work"
+  },
+  {
+    id: "tl-4",
+    year: "2016 - 2020",
+    role: "计算机科学学士",
+    organization: "加州大学",
+    description: "专注于人机交互、算法设计与分布式系统。",
+    type: "education"
+  }
+];
+
+export const SKILL_CATEGORIES: SkillCategory[] = [
+  {
+    name: "前端与 UI",
+    skills: [
+      { name: "React / Next.js", level: 95, iconName: "Code2" },
+      { name: "TypeScript", level: 90, iconName: "FileCode" },
+      { name: "Tailwind CSS", level: 95, iconName: "Palette" },
+      { name: "Framer Motion", level: 85, iconName: "Sparkles" }
+    ]
+  },
+  {
+    name: "后端与 AI",
+    skills: [
+      { name: "Node.js & Express", level: 90, iconName: "Server" },
+      { name: "Python & FastAPI", level: 80, iconName: "Cpu" },
+      { name: "Gemini / LLM API", level: 90, iconName: "Bot" },
+      { name: "PostgreSQL / SQL", level: 85, iconName: "Database" }
+    ]
+  },
+  {
+    name: "工具与设计",
+    skills: [
+      { name: "Git & CI/CD", level: 90, iconName: "GitBranch" },
+      { name: "Figma / UI UX", level: 88, iconName: "Layout" },
+      { name: "Docker & Cloud Run", level: 82, iconName: "Cloud" },
+      { name: "Vite & Bundlers", level: 90, iconName: "Zap" }
+    ]
+  }
 ];

@@ -1,34 +1,40 @@
 export interface Project {
   id: string;
   title: string;
-  category: string;
-  categoryLabel?: string;
   description: string;
   longDescription: string;
+  category: 'AI' | 'Full-Stack' | 'Design' | 'Open Source';
   tags: string[];
   image: string;
-  demoUrl?: string;
   liveUrl?: string;
   githubUrl?: string;
-  date: string;
   featured: boolean;
   stars?: number;
+  date: string;
 }
 
 export interface Article {
   id: string;
   title: string;
-  summary: string;
+  excerpt: string;
   content: string;
-  category: 'AI 实践' | '前端开发' | '独立思考' | '数字游民';
+  category: string;
   readTime: string;
   date: string;
-  views: number;
+  image: string;
+  slug: string;
 }
 
-export interface SkillItem {
+export interface TimelineItem {
+  id: string;
+  year: string;
+  role: string;
+  organization: string;
+  description: string;
+  type: 'work' | 'education' | 'milestone';
+}
+
+export interface SkillCategory {
   name: string;
-  level: number; // 1-100
-  category: 'Frontend' | 'AI & LLM' | 'Design' | 'Workflow';
-  iconName: string;
+  skills: { name: string; level: number; iconName: string }[];
 }
